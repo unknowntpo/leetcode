@@ -1,15 +1,14 @@
-package main
+package list
 
 import (
 	"testing"
-
-	singly "github.com/unknowntpo/leetcode/list/signly-ll"
 )
 
 func TestPushFront(t *testing.T) {
 	t.Run("singly linked list", func(t *testing.T) {
 		var l List
-		l = singly.New()
+		l = newSinglyLL()
+		_ = l
 	})
 }
 func TestPushBack(t *testing.T) {

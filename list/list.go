@@ -1,4 +1,4 @@
-package main
+package list
 
 type List interface {
 	PushFront(val int)
