@@ -27,15 +27,30 @@ func (h *heap) heapifyUp(idx int) {
 }
 
 func (h *heap) heapifyDown(idx int) {
+	// if c has no child
+	if leftChild(idx) >= len(h.eles) && rightChild(idx) >= len(h.eles) {
+		return
+	}
+	// if c has only left child
+	if rightChild(idx) >= len(h.eles) {
+		if c, l := h.eles[idx], h.eles[leftChild(idx)]; c > l {
+			c, l = l, c
+			h.heapifyDown(leftChild(idx))
+			return
+		}
+		return
+	}
+
+	// Now, c has both left, right child
 	c, l, r := h.eles[idx], h.eles[leftChild(idx)], h.eles[rightChild(idx)]
 
 	if c < l && c < r {
 		return
-	} else if c < l {
-		c, l = l, c
+	} else if c > l {
+		h.eles[idx], h.eles[leftChild(idx)] = h.eles[leftChild(idx)], h.eles[idx]
 		h.heapifyDown(leftChild(idx))
 	} else {
-		c, r = r, c
+		h.eles[idx], h.eles[rightChild(idx)] = h.eles[rightChild(idx)], h.eles[idx]
 		h.heapifyDown(rightChild(idx))
 	}
 }
@@ -51,7 +66,7 @@ func rightChild(idx int) int {
 }
 
 func (h *heap) String() string {
-	return fmt.Sprint(h)
+	return fmt.Sprintf("%v", h.eles)
 }
 
 func main() {
